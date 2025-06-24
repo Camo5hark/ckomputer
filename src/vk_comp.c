@@ -181,6 +181,7 @@ void ck_vk_comp_dispatch(const struct ck_vk_comp_t *vk_comp, const uint32_t n_gr
     vkCmdDispatch(vk_cmd_bfr_group.vk_cmd_bfrs[0], n_groups_x, n_groups_y, n_groups_z);
     ck_vk_cmd_bfr_end(&vk_cmd_bfr_group, 0);
     ck_vk_cmd_bfr_group_submit(&vk_cmd_bfr_group, vk_comp->ck_vk_dev_logical->m_vk_q_computes[0], fence, sync);
+    ck_vk_cmd_bfr_group_free(&vk_cmd_bfr_group);
 }
 
 void ck_vk_comp_wds_group_init(struct ck_vk_comp_wds_group_t *ck_vk_comp_wds_group, struct ck_vk_comp_t *ck_vk_comp) {
