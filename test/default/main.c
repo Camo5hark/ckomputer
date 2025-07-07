@@ -24,18 +24,24 @@ Git repo: https://github.com/Camo5hark/ckomputer
 #include <stdio.h>
 
 int main() {
-    ck_init();
+    // initialize library with Vulkan validation layer enabled
+    ck_init(CK_INIT_FLAG_ENABLE_VK_VAL_LAYER);
 
-    struct ck_vk_dev_logical_t *m_dev_logical = ck_vk_dev_logical_create(1, NULL, &m_ck_vk_dev_phys[1], 0, 0, 0);
+    // create a logical device on the default physical device
+    struct ck_vk_dev_logical_t *m_dev_logical = ck_vk_dev_logical_create(1, NULL, &m_ck_vk_dev_phys[0], 0, 0, 0);
 
+    // create a single float uniform buffer
     struct ck_vk_bfr_t *m_bfr_mul = ck_vk_bfr_create(m_dev_logical, sizeof(float), VK_BUFFER_USAGE_UNIFORM_BUFFER_BIT, VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER);
     const float mul = 0.5F;
     ck_vk_bfr_write(m_bfr_mul, sizeof(float), &mul);
+    // create a 10 float storage buffer for the input data
     struct ck_vk_bfr_t *m_bfr_in = ck_vk_bfr_create(m_dev_logical, 10 * sizeof(float), VK_BUFFER_USAGE_STORAGE_BUFFER_BIT, VK_DESCRIPTOR_TYPE_STORAGE_BUFFER);
     const float dat_in[] = {1.0F, 2.0F, 3.0F, 4.0F, 5.0F, 6.0F, 7.0F, 8.0F, 9.0F, 10.0F};
     ck_vk_bfr_write(m_bfr_in, 10 * sizeof(float), &dat_in);
+    // create a 10 float storage buffer for the output data
     struct ck_vk_bfr_t *m_bfr_out = ck_vk_bfr_create(m_dev_logical, 10 * sizeof(float), VK_BUFFER_USAGE_STORAGE_BUFFER_BIT, VK_DESCRIPTOR_TYPE_STORAGE_BUFFER);
 
+    // layout descriptor sets for above buffers
     const VkDescriptorSetLayoutBinding dsl_bindings[] = {
         {
             .binding = 0,
@@ -59,23 +65,28 @@ int main() {
             .pImmutableSamplers = NULL
         }
     };
+    // create a compute shader
     FILE *code_in = fopen("./comps/a_comp.comp.spv", "rb");
     struct ck_vk_comp_t *m_vk_comp = ck_vk_comp_create_from_stream(m_dev_logical, code_in, 3, dsl_bindings);
 
+    // bind all buffers created above to respective binding points in shader
     struct ck_vk_comp_wds_group_t comp_wds_group = {0};
     ck_vk_comp_wds_group_init(&comp_wds_group, m_vk_comp);
     ck_vk_comp_wds_group_add_bfr(&comp_wds_group, m_bfr_mul, 0);
     ck_vk_comp_wds_group_add_bfr(&comp_wds_group, m_bfr_in, 1);
     ck_vk_comp_wds_group_add_bfr(&comp_wds_group, m_bfr_out, 2);
     ck_vk_comp_wds_group_submit(&comp_wds_group);
-    ck_vk_comp_dispatch(m_vk_comp, 1, 1, 1, VK_NULL_HANDLE, true);
+    // dispatch compute shader to calculate results
+    ck_vk_comp_dispatch(m_vk_comp, 10, 1, 1, VK_NULL_HANDLE, true);
 
+    // read output data to CPU buffer and print it out
     float dat_out[10] = {0.0F};
     ck_vk_bfr_read(m_bfr_out, 10 * sizeof(float), &dat_out);
     for (uint32_t i = 0; i < 10; ++i) {
         printf("%f\n", dat_out[i]);
     }
 
+    // destroy library
     ck_cleanup();
     return 0;
 }
