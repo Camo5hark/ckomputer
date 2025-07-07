@@ -65,7 +65,7 @@ void fatal_exit_vk(const VkResult vk_result, const char *vk_func_name) {
     fatal_exit();
 }
 
-void ck_init(void) {
-    vk_inst_init();
+void ck_init(const uint32_t flags) {
+    vk_inst_init((flags & CK_INIT_FLAG_ENABLE_VK_VAL_LAYER) == CK_INIT_FLAG_ENABLE_VK_VAL_LAYER);
     vk_dev_phys_init();
 }

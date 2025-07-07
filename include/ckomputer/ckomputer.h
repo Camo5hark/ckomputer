@@ -38,6 +38,8 @@ Git repo: https://github.com/Camo5hark/ckomputer
 
 #define CK_MAX_N_VK_WRITE_DESC_SETS_PER_CK_VK_COMP_WDS_GROUP 16
 
+#define CK_INIT_FLAG_ENABLE_VK_VAL_LAYER 0x1
+
 struct ck_vk_dev_phys_t {
     VkPhysicalDevice vk;
     VkPhysicalDeviceProperties vk_props;
@@ -98,7 +100,7 @@ extern VkInstance vk_inst;
 extern uint32_t n_ck_vk_dev_phys;
 extern struct ck_vk_dev_phys_t *m_ck_vk_dev_phys;
 
-void ck_init(void);
+void ck_init(uint32_t flags);
 void ck_cleanup(void);
 
 void ck_vk_dev_phys_print(const struct ck_vk_dev_phys_t *vk_dev_phys, bool limits);

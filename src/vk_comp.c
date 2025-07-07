@@ -193,12 +193,13 @@ void ck_vk_comp_wds_group_add_bfr(struct ck_vk_comp_wds_group_t *ck_vk_comp_wds_
     VkDescriptorBufferInfo *vk_dbi = &ck_vk_comp_wds_group->vk_dbis[ck_vk_comp_wds_group->n_vk_dbis];
     ++ck_vk_comp_wds_group->n_vk_dbis;
     vk_dbi->buffer = ck_vk_bfr->ck_vma_bfr_dev.vk;
+    // struct should be zero'd anyways
     //vk_dbi->offset = 0;
     vk_dbi->range = VK_WHOLE_SIZE;
     VkWriteDescriptorSet *vk_wds = &ck_vk_comp_wds_group->vk_wdss[ck_vk_comp_wds_group->n_vk_wdss];
     ++ck_vk_comp_wds_group->n_vk_wdss;
     vk_wds->sType = VK_STRUCTURE_TYPE_WRITE_DESCRIPTOR_SET;
-    vk_wds->dstSet = ck_vk_comp_wds_group->ck_vk_comp->vk_desc_set;// TODO this should just be one descriptor set
+    vk_wds->dstSet = ck_vk_comp_wds_group->ck_vk_comp->vk_desc_set;
     vk_wds->dstBinding = desc_set_binding;
     //vk_wds->dstArrayElement = 0;
     vk_wds->descriptorType = ck_vk_bfr->vk_desc_type;

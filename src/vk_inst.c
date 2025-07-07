@@ -26,7 +26,7 @@ Git repo: https://github.com/Camo5hark/ckomputer
 
 VkInstance vk_inst = VK_NULL_HANDLE;
 
-void vk_inst_init(void) {
+void vk_inst_init(const bool enable_vk_val_layer) {
     VkApplicationInfo app_info = {0};
     app_info.sType = VK_STRUCTURE_TYPE_APPLICATION_INFO;
     app_info.pApplicationName = "ckomputer";
@@ -37,11 +37,11 @@ void vk_inst_init(void) {
     VkInstanceCreateInfo inst_create_info = {0};
     inst_create_info.sType = VK_STRUCTURE_TYPE_INSTANCE_CREATE_INFO;
     inst_create_info.pApplicationInfo = &app_info;
-#ifdef DEBUG
-    inst_create_info.enabledLayerCount = 1;
-    static const char *val_layer_name = "VK_LAYER_KHRONOS_validation";
-    inst_create_info.ppEnabledLayerNames = &val_layer_name;
-#endif
+    if (enable_vk_val_layer) {
+        inst_create_info.enabledLayerCount = 1;
+        static const char *val_layer_name = "VK_LAYER_KHRONOS_validation";
+        inst_create_info.ppEnabledLayerNames = &val_layer_name;
+    }
     const VkResult vk_result = vkCreateInstance(&inst_create_info, VK_NULL_HANDLE, &vk_inst);
     if (_VK_FAILURE) {
         fatal_exit_vk(vk_result, "vkCreateInstance");
