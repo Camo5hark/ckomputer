@@ -58,6 +58,13 @@ target_include_directories(ckomputer PUBLIC include)
 target_include_directories(ckomputer PUBLIC ${VULKAN_SDK_DIR}/Include)
 target_link_directories(ckomputer PUBLIC ${VULKAN_SDK_DIR}/Lib)
 target_link_libraries(ckomputer PUBLIC vulkan-1)
+set_target_properties(
+        ckomputer
+        PROPERTIES
+        ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}
+        LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}
+        RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}
+)
 
 set(COMP_BIN_DIR ${CMAKE_BINARY_DIR}/comps)
 

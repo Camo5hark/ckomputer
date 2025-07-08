@@ -22,7 +22,7 @@ Git repo: https://github.com/Camo5hark/ckomputer
 
 #version 430
 
-layout(local_size_x = 10, local_size_y = 1, local_size_z = 1) in;
+layout(local_size_x = 1, local_size_y = 1, local_size_z = 1) in;
 layout(binding = 0) uniform in_multiplier {
     float in_multiplier_val;
 };
