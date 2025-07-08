@@ -25,7 +25,7 @@ Git repo: https://github.com/Camo5hark/ckomputer
 
 #include "lib.h"
 
-void vk_inst_init(void);
+void vk_inst_init(bool enable_vk_val_layer);
 void vk_inst_cleanup(void);
 
 void vk_dev_phys_init(void);
