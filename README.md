@@ -6,6 +6,8 @@ A Vulkan 1.0 compute wrapper library written in C for general-purpose GPU parall
 
 ### 1. Clone repository with submodules
 
+This library requires a VulkanSDK to be built.
+
 <code>git clone --recursive-submodules https://github.com/Camo5hark/ckomputer.git</code>
 
 <code>cd ckomputer</code>
@@ -14,7 +16,7 @@ A Vulkan 1.0 compute wrapper library written in C for general-purpose GPU parall
 
 <code>mkdir build</code>
 
-<code>cmake -S . -B build -G "Your Preferred Generator"</code>
+<code>cmake -S . -B build -G "Your Preferred Generator" -DVULKAN_SDK_DIR=Path/To/VulkanSDK</code>
 
 ### 3. Build
 
