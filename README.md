@@ -1,31 +1,33 @@
 # ckomputer
 
-A Vulkan 1.0 compute wrapper library written in C for general-purpose GPU parallel computing. This library is currently in the developmental stage.
+A Vulkan 1.0 compute wrapper library written in C for general-purpose GPU parallel computing.
 
-## Preparation
+## Building
 
-### Building
+### 1. Clone repository with submodules
 
-This library requires CMake, a C/C++ toolchain, and a Vulkan SDK to be built. Currently, this project has only been built successfully on Windows using Ninja and LunarG Vulkan SDK. However, it should build successfully on other platforms and using different toolchains.
+<code>git clone --recursive-submodules https://github.com/Camo5hark/ckomputer.git</code>
 
-<b>The <code>VULKAN_SDK_DIR</code> definition must be defined during CMake configuration with the directory of your Vulkan SDK.</b>
+<code>cd ckomputer</code>
 
-Configure CMake:
+### 2. Configure
 
-<code>cmake -DVULKAN_SDK_DIR=C:/VulkanSDK/X.X.X.X -G Ninja -S . -B ./build</code>
+<code>mkdir build</code>
 
-Build library:
+<code>cmake -S . -B build -G "Your Preferred Generator"</code>
 
-<code>cmake --build build --target ckomputer</code>
+### 3. Build
 
-OR build library with test:
+Just the library: <code>cmake --build build --target ckomputer</code>
 
-<code>cmake --build build --target test-default</code>
+Library and test: <code>cmake --build build --target test-default</code>
 
-### Linking
+## Usage
 
-The resulting shared library from the build process above must then be linked to your application. Include the <code>ckomputer.h</code> header in your application.
+### 1. Include header(s)
 
-### Usage
+Add <code>ckomputer/include</code> as an include directory to your application. Then, <code>#include <ckomputer/ckomputer.h></code>.
 
-See usage example in <code>test/default/main.c</code>. Documentation not complete as of now.
+### 2. Link library
+
+Add <code>ckomputer/build</code> as a link directory to your application. Then, link <code>ckomputer</code> shared object/DLL to your application.
