@@ -30,7 +30,7 @@ Git repo: https://github.com/Camo5hark/ckomputer
 #include <string.h>
 #include <stdio.h>
 #include <vulkan/vulkan.h>
-#include <c-linked-list-master/linkedlist.h>
+#include <c-linked-list/linkedlist.h>
 
 #define _VK_FAILURE (vk_result != VK_SUCCESS)
 

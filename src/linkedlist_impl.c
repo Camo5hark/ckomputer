@@ -21,4 +21,4 @@ Git repo: https://github.com/Camo5hark/ckomputer
  */
 
 #define LINKEDLIST_IMPLEMENTATION
-#include <c-linked-list-master/linkedlist.h>
+#include <c-linked-list/linkedlist.h>

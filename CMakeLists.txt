@@ -55,6 +55,7 @@ set_target_properties(
         CXX_STANDARD_REQUIRED YES
 )
 target_include_directories(ckomputer PUBLIC include)
+target_include_directories(ckomputer PUBLIC lib)
 target_include_directories(ckomputer PUBLIC ${VULKAN_SDK_DIR}/Include)
 target_link_directories(ckomputer PUBLIC ${VULKAN_SDK_DIR}/Lib)
 target_link_libraries(ckomputer PUBLIC vulkan-1)

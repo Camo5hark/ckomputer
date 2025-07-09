@@ -1,0 +1,3 @@
+[submodule "lib/c-linked-list"]
+	path = lib/c-linked-list
+	url = https://github.com/Camo5hark/c-linked-list.git
